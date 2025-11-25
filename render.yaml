@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: wedding-puppeteer-server
+    runtime: node
+    region: frankfurt
+    plan: free
+    buildCommand: npm ci --prefer-offline --no-audit
+    startCommand: node screenshot-server-production.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD
+        value: false
+      - key: PUPPETEER_EXECUTABLE_PATH
+        value: /usr/bin/chromium-browser
+    healthCheckPath: /health
