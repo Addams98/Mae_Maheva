@@ -1,4 +1,4 @@
-const chrome = require('chrome-aws-lambda');
+const chromium = require('@sparticuz/chromium');
 const puppeteer = require('puppeteer-core');
 const express = require('express');
 const cors = require('cors');
@@ -48,11 +48,12 @@ app.get('/generate', async (req, res) => {
         console.log(`🎫 Génération ${format.toUpperCase()} pour invité #${guest_id}`);
         console.log(`📍 URL: ${ticketUrl}`);
         
-        // Lancer Puppeteer avec config pour Vercel/Serverless
+        // Lancer Puppeteer avec Chromium pour Vercel
         browser = await puppeteer.launch({
-            args: chrome.args,
-            executablePath: await chrome.executablePath,
-            headless: chrome.headless
+            args: chromium.args,
+            defaultViewport: chromium.defaultViewport,
+            executablePath: await chromium.executablePath(),
+            headless: chromium.headless
         });
         
         const page = await browser.newPage();
