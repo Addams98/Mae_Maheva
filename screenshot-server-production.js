@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const chrome = require('chrome-aws-lambda');
 const express = require('express');
 const cors = require('cors');
 const app = express();
@@ -47,15 +48,11 @@ app.get('/generate', async (req, res) => {
         console.log(`🎫 Génération ${format.toUpperCase()} pour invité #${guest_id}`);
         console.log(`📍 URL: ${ticketUrl}`);
         
-        // Lancer Puppeteer avec config pour Render
+        // Lancer Puppeteer avec config pour Vercel/Serverless
         browser = await puppeteer.launch({
-            headless: 'new',
-            args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-gpu'
-            ]
+            args: chrome.args,
+            executablePath: await chrome.executablePath,
+            headless: chrome.headless
         });
         
         const page = await browser.newPage();
