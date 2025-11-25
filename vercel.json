@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "screenshot-server-production.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "screenshot-server-production.js"
+    }
+  ],
+  "env": {
+    "BASE_URL": "https://maheva-mael.free.nf"
+  }
+}
