@@ -1,5 +1,5 @@
-const puppeteer = require('puppeteer');
 const chrome = require('chrome-aws-lambda');
+const puppeteer = require('puppeteer-core');
 const express = require('express');
 const cors = require('cors');
 const app = express();
